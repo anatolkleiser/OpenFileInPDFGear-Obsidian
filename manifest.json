@@ -1,7 +1,7 @@
 {
 	"id": "obsidian-open-file-in-PDFGear",
 	"name": "Open Files In PDFGear",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"minAppVersion": "1.0.0",
 	"description": "Open files in PDFGear.",
 	"author": "Anatol Kleiser",
