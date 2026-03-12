@@ -1,6 +1,6 @@
 {
 	"name": "obsidian-open-file-in-pdfgear",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"description": "Open files in PDFGear.",
 	"main": "main.js",
 	"scripts": {
