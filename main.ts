@@ -1,40 +1,40 @@
-import { Plugin, normalizePath, TFile, Platform } from 'obsidian';
+import { Plugin, normalizePath, TFile, Platform, FileSystemAdapter } from 'obsidian';
+import { exec } from 'child_process';
 
-export default class OpenInEdgePlugin extends Plugin {
+export default class OpenInPDFGearPlugin extends Plugin {
 
 	async onload() {
-
-		const ribbonIconEl = this.addRibbonIcon('paper-plane', 'Open File In Edge', (evt: MouseEvent) => {
-			this.openFileInEdge(this.app.workspace.getActiveFile());
+		const ribbonIconEl = this.addRibbonIcon('pencil-ruler', 'Open File In PDFGear', (evt: MouseEvent) => {
+			const file = this.app.workspace.getActiveFile();
+			if (file) this.openFileInPDFGear(file);
 		});
-		ribbonIconEl.addClass('open-in-edge-ribbon-class');
+		ribbonIconEl.addClass('open-in-PDFGear-ribbon-class');
 
-		// If the plugin hooks up any global DOM events (on parts of the app that doesn't belong to this plugin)
-		// Using this function will automatically remove the event listener when this plugin is disabled.
-		this.registerDomEvent(document, 'click', (evt: MouseEvent) => {
-			console.log('click', evt);
+		this.addCommand({
+			id: 'open-in-pdfgear',
+			name: 'Open current file in PDFGear',
+			checkCallback: (checking: boolean) => {
+				const file = this.app.workspace.getActiveFile();
+				if (file) {
+					if (!checking) this.openFileInPDFGear(file);
+					return true;
+				}
+			}
 		});
-
-		// When registering intervals, this function will automatically clear the interval when the plugin is disabled.
-		this.registerInterval(window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000));
 	}
 
-	onunload() {
+	onunload() {}
 
-	}
-
-	openFileInEdge(file: TFile) {
-		var path = this.getAbsolutePathOfFile(file);
-		// adjust app_ to your needs, just make sure the command works in a terminal as intended
-		var app_ = "start msedge";
-		var cmd = app_ + " \"" + path + "\"";
-		const { exec } = require("child_process");
-		exec(cmd);
+	openFileInPDFGear(file: TFile) {
+		const path = this.getAbsolutePathOfFile(file);
+		const app_ = "C:\\Program Files\\PDFgear\\PDFLauncher.exe";
+		exec(`"${app_}" "${path}"`);
 	}
 
 	getAbsolutePathOfFile(file: TFile): string {
-		//@ts-ignore
-		const path = normalizePath(`${this.app.vault.adapter.basePath}/${file.path}`)
+		const adapter = this.app.vault.adapter;
+		const basePath = adapter instanceof FileSystemAdapter ? adapter.getBasePath() : '';
+		const path = normalizePath(`${basePath}/${file.path}`);
 		if (Platform.isDesktopApp && navigator.platform === "Win32") {
 			return path.replace(/\//g, "\\");
 		}

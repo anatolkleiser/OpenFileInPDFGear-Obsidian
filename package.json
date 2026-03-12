@@ -1,23 +1,24 @@
 {
-	"name": "obsidian-open-file-in-edge",
-	"version": "0.12.0",
-	"description": "Open files in Microsoft Edge.",
+	"name": "obsidian-open-file-in-pdfgear",
+	"version": "1.0.1",
+	"description": "Open files in PDFGear.",
 	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",
-		"build": "node esbuild.config.mjs production"
+		"build": "node esbuild.config.mjs production",
 	},
 	"keywords": [],
-	"author": "",
+	"author": "Anatol Kleiser",
 	"license": "MIT",
 	"devDependencies": {
-		"@types/node": "^16.11.6",
-		"@typescript-eslint/eslint-plugin": "^5.2.0",
-		"@typescript-eslint/parser": "^5.2.0",
-		"builtin-modules": "^3.2.0",
-		"esbuild": "0.13.12",
-		"obsidian": "^0.12.17",
-		"tslib": "2.3.1",
-		"typescript": "4.4.4"
+		"@types/node": "^22.0.0",
+		"@typescript-eslint/eslint-plugin": "^8.0.0",
+		"@typescript-eslint/parser": "^8.0.0",
+		"builtin-modules": "^4.0.0",
+		"esbuild": "^0.25.0",
+		"eslint": "^8.57.0",
+		"obsidian": "^1.12.3",
+		"tslib": "^2.8.0",
+		"typescript": "^5.7.0"
 	}
 }
